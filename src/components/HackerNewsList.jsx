@@ -11,7 +11,10 @@ const fetchHackerNewsStories = async () => {
 };
 
 const HackerNewsList = ({ searchQuery }) => {
-  const { data, isLoading, error } = useQuery(['hackerNewsStories'], fetchHackerNewsStories);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['hackerNewsStories'],
+    queryFn: fetchHackerNewsStories,
+  });
   const [filteredStories, setFilteredStories] = useState([]);
 
   useEffect(() => {
