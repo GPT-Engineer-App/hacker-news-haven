@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, MessageSquare } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const fetchHackerNewsStories = async () => {
   const response = await fetch('https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=100');
@@ -50,7 +51,13 @@ const HackerNewsList = ({ searchQuery }) => {
         <li key={story.objectID} className="border p-4 rounded-lg">
           <h2 className="text-xl font-semibold mb-2">{story.title}</h2>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-gray-600">Upvotes: {story.points}</span>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">Upvotes: {story.points}</span>
+              <Button variant="ghost" size="sm" className="flex items-center">
+                <MessageSquare className="mr-1 h-4 w-4" />
+                {story.num_comments}
+              </Button>
+            </div>
             <a
               href={story.url}
               target="_blank"
